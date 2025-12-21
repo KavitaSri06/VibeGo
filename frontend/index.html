@@ -11,22 +11,54 @@
   <p>Find the best place to go, without overthinking.</p>
 
   <div class="controls">
-    <label>
-      Latitude:
-      <input type="number" id="lat" value="13.0418" step="0.0001" />
-    </label>
+    <label>City:
+  <input id="city" value="Chennai">
+</label>
 
-    <label>
-      Longitude:
-      <input type="number" id="lng" value="80.2341" step="0.0001" />
-    </label>
+<label>Area:
+  <input id="area" value="T Nagar">
+</label>
 
-    <label>
-      Group:
-      <select id="group">
-        <option value="friends">Friends</option>
-      </select>
-    </label>
+
+<label>
+  Group:
+  <select id="group">
+    <option value="solo">Solo</option>
+    <option value="friends">Friends</option>
+    <option value="couple">Couple</option>
+    <option value="family">Family</option>
+    <option value="colleagues">Colleagues</option>
+  </select>
+</label>
+
+<label>
+  Time Available:
+  <select id="time">
+    <option value="1">1–2 hours</option>
+    <option value="2" selected>2–4 hours</option>
+    <option value="4">4–6 hours</option>
+  </select>
+</label>
+
+<label>
+  Budget:
+  <select id="budget">
+    <option value="low">₹ Low</option>
+    <option value="medium" selected>₹₹ Medium</option>
+    <option value="high">₹₹₹ High</option>
+  </select>
+</label>
+
+
+<label>Transport:
+  <select id="transport">
+    <option value="walk">Walk</option>
+    <option value="bike">Bike</option>
+    <option value="bus">Bus</option>
+    <option value="car" selected>Car</option>
+  </select>
+</label>
+
 
     <button onclick="fetchPlaces()">Find Places</button>
   </div>

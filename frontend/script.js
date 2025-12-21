@@ -1,13 +1,30 @@
 const API_BASE = "http://localhost:5000";
 
 async function fetchPlaces() {
-  const lat = document.getElementById("lat").value;
-  const lng = document.getElementById("lng").value;
-  const group = document.getElementById("group").value;
+  const city = document.getElementById("city").value;
+const area = document.getElementById("area").value;
+const transport = document.getElementById("transport").value;
 
-  const res = await fetch(
-    `${API_BASE}/api/places?lat=${lat}&lng=${lng}&group=${group}&maxDist=2`
-  );
+
+
+const group = document.getElementById("group").value;
+const time = document.getElementById("time").value;
+const budget = document.getElementById("budget").value;
+
+
+const maxDistMap = {
+  1: 1,
+  2: 2,
+  4: 4
+};
+
+const maxDist = maxDistMap[time];
+
+const res = await fetch(
+  `${API_BASE}/api/places?city=${city}&area=${area}&group=${group}&time=${time}&budget=${budget}&transport=${transport}`
+);
+
+
 
   const places = await res.json();
   renderPlaces(places);
