@@ -75,5 +75,5 @@ It:
 
 ## 👩‍💻 Author
 
-Built by **Kavita Sr** with ❤️  
+Built by **Kavita Sri** with ❤️  
 as a decision-focused, real-time recommendation system.
