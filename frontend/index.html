@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>VibeGo</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <h1>VibeGo 🚀</h1>
+  <p>Find the best place to go, without overthinking.</p>
+
+  <div class="controls">
+    <label>
+      Latitude:
+      <input type="number" id="lat" value="13.0418" step="0.0001" />
+    </label>
+
+    <label>
+      Longitude:
+      <input type="number" id="lng" value="80.2341" step="0.0001" />
+    </label>
+
+    <label>
+      Group:
+      <select id="group">
+        <option value="friends">Friends</option>
+      </select>
+    </label>
+
+    <button onclick="fetchPlaces()">Find Places</button>
+  </div>
+
+  <div id="results"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
