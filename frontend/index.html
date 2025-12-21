@@ -6,64 +6,77 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="app">
 
-  <h1>VibeGo 🚀</h1>
-  <p>Find the best place to go, without overthinking.</p>
+    <header class="hero">
+      <h1>VibeGo</h1>
+      <p class="tagline">Decide faster. Go happier.</p>
+    </header>
 
-  <div class="controls">
-    <label>City:
-  <input id="city" value="Chennai">
-</label>
+    <!-- USER INPUT CARD -->
+    <section class="input-card">
+      <div class="input-grid">
 
-<label>Area:
-  <input id="area" value="T Nagar">
-</label>
+        <div class="input-group">
+          <label>City</label>
+          <input type="text" id="city" value="Chennai" />
+        </div>
 
+        <div class="input-group">
+          <label>Area</label>
+          <input type="text" id="area" value="T Nagar" />
+        </div>
 
-<label>
-  Group:
-  <select id="group">
-    <option value="solo">Solo</option>
-    <option value="friends">Friends</option>
-    <option value="couple">Couple</option>
-    <option value="family">Family</option>
-    <option value="colleagues">Colleagues</option>
-  </select>
-</label>
+        <div class="input-group">
+          <label>Group</label>
+          <select id="group">
+            <option value="solo">Solo</option>
+            <option value="friends">Friends</option>
+            <option value="couple">Couple</option>
+            <option value="family">Family</option>
+            <option value="colleagues">Colleagues</option>
+          </select>
+        </div>
 
-<label>
-  Time Available:
-  <select id="time">
-    <option value="1">1–2 hours</option>
-    <option value="2" selected>2–4 hours</option>
-    <option value="4">4–6 hours</option>
-  </select>
-</label>
+        <div class="input-group">
+          <label>Time Available</label>
+          <select id="time">
+            <option value="1">1–2 hours</option>
+            <option value="2" selected>2–4 hours</option>
+            <option value="4">4–6 hours</option>
+          </select>
+        </div>
 
-<label>
-  Budget:
-  <select id="budget">
-    <option value="low">₹ Low</option>
-    <option value="medium" selected>₹₹ Medium</option>
-    <option value="high">₹₹₹ High</option>
-  </select>
-</label>
+        <div class="input-group">
+          <label>Budget</label>
+          <select id="budget">
+            <option value="low">₹ Low</option>
+            <option value="medium" selected>₹₹ Medium</option>
+            <option value="high">₹₹₹ High</option>
+          </select>
+        </div>
 
+        <div class="input-group">
+          <label>Transport</label>
+          <select id="transport">
+            <option value="walk">Walk</option>
+            <option value="bike">Bike</option>
+            <option value="bus">Bus</option>
+            <option value="car" selected>Car</option>
+          </select>
+        </div>
 
-<label>Transport:
-  <select id="transport">
-    <option value="walk">Walk</option>
-    <option value="bike">Bike</option>
-    <option value="bus">Bus</option>
-    <option value="car" selected>Car</option>
-  </select>
-</label>
+      </div>
 
+      <button class="primary-btn" onclick="fetchPlaces()">
+        Get Recommendations
+      </button>
+    </section>
 
-    <button onclick="fetchPlaces()">Find Places</button>
+    <!-- RESULTS -->
+    <section id="results"></section>
+
   </div>
-
-  <div id="results"></div>
 
   <script src="script.js"></script>
 </body>

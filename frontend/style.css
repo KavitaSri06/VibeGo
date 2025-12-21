@@ -1,38 +1,167 @@
 body {
-  font-family: Arial, sans-serif;
-  padding: 20px;
-  max-width: 700px;
-  margin: auto;
-}
-
-.controls {
-  margin-bottom: 20px;
-}
-
-label {
-  display: block;
-  margin: 10px 0;
-}
-
-button {
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-.place {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.place h3 {
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f7fa;
   margin: 0;
 }
 
-.reject-btn {
-  background: #ff4d4d;
-  color: white;
+.app {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px;
+}
+
+/* HERO */
+.hero {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  margin: 0;
+}
+
+.tagline {
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+/* INPUT CARD */
+.input-card {
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  margin-bottom: 32px;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.input-group label {
+  font-size: 13px;
+  color: #374151;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.primary-btn {
+  margin: 22px auto 0;
+  display: block;
+  padding: 12px 26px;
+  border-radius: 12px;
   border: none;
-  padding: 6px 10px;
+  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  color: white;
+  font-size: 15px;
   cursor: pointer;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+/* RESULTS GRID */
+#results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* PLACE CARD */
+.place {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
+}
+
+.place:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0,0,0,0.08);
+}
+
+.place.top {
+  border: 2px solid #2563eb;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rank {
+  background: #eef2ff;
+  color: #2563eb;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* MATCH BAR */
+.match-bar {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 14px 0 6px;
+}
+
+.match-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #22c55e);
+}
+
+.match-text {
+  font-weight: bold;
+  color: #2563eb;
+  font-size: 14px;
+}
+
+/* META */
+.meta {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.reason {
+  margin: 6px 0;
+  font-size: 14px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin: 10px 0;
+}
+
+/* REJECT */
+.reject-btn {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  cursor: pointer;
+}
+
+.reject-btn:hover {
+  background: #fee2e2;
+  color: #b91c1c;
+  border-color: #fca5a5;
 }

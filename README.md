@@ -1,75 +1,79 @@
-# VibeGo 🚀
+# 🚀 VibeGo – A Smart Engine to Decide Where to Go
 
-VibeGo is an intelligent, constraint-based outing decision engine designed to reduce decision fatigue while planning short outings.  
-Instead of listing hundreds of places, VibeGo helps users **converge on the best possible choice** through iterative ranking and rejection feedback.
+VibeGo is a constraint-based decision engine that helps users decide **where to go for short outings**.  
+Instead of listing hundreds of places, VibeGo focuses on **decision convergence** by ranking, explaining, and refining recommendations based on real-world constraints.
 
 ---
 
-## 🔍 Problem Statement
+## 🧠 Problem Statement
 
-When planning short outings (with friends, family, or colleagues), users often struggle to decide where to go due to:
-- Too many available options
-- Limited budget and time
-- Different group preferences
-- Repetition of already visited places
+Choosing where to go for a short outing is often harder than the outing itself.
 
-Existing platforms focus on **discovery**, not **decision-making**, leading to confusion and wasted time.
+Users face decision fatigue due to too many options, limited time and budget, varying group preferences, and repeated suggestions of already visited places. Most existing platforms focus on **place discovery**, not on helping users **arrive at a clear decision**.
 
 ---
 
 ## 💡 Solution Overview
 
-VibeGo acts as a **decision assistant**, not a discovery tool.
+VibeGo works as a **decision assistant**, not a discovery platform.
 
 It:
-- Dynamically fetches nearby places using map/location APIs
-- Ranks places based on constraints like budget, time, group type, and distance
-- Presents only the **top N recommendations**
-- Allows users to reject options (e.g., already visited, not interested)
-- Re-ranks and refines results iteratively until the best option is selected
+- Accepts user constraints such as city, area, group type, time, budget, and transport
+- Fetches nearby places using real-time map data
+- Ranks places using a constraint-based scoring engine
+- Displays only the **top-ranked recommendations**
+- Allows users to reject options and dynamically re-ranks remaining places
+- Guides the user toward a confident final choice
 
 ---
 
-## ✨ Key Features (Planned)
+## 🖼️ UI Preview
 
-- 🌍 City & locality-based place selection
-- 🎯 Constraint-based ranking (budget, time, group type)
-- 🔁 Iterative rejection and re-ranking loop (core USP)
-- 🧠 Explainable recommendations (why this place?)
-- 🚕 Transport feasibility & travel-time awareness
-- 🔌 Real-time data via external APIs (Google Places / OpenStreetMap)
+![VibeGo UI](./assets/vibego-ui.png)
 
 ---
 
-## 🧱 System Architecture (High Level)
+## ✨ Key Capabilities
 
-1. User inputs constraints (location, budget, time, group)
-2. System fetches nearby places via external APIs
-3. Custom ranking engine scores each place
-4. Top-N results are shown
-5. User rejection feedback updates ranking dynamically
-6. Process repeats until decision convergence
-
----
-
-## 🛠 Tech Stack (Initial)
-
-- Frontend: Web (HTML/CSS/JavaScript → React later)
-- Backend: Node.js (planned)
-- Data Source: Google Places API / OpenStreetMap
-- Core Logic: Rule-based + weighted ranking engine
+- 🌍 City & area-based place selection  
+- 🎯 Constraint-aware ranking (time, budget, group type, transport)  
+- 🔁 Iterative rejection and re-ranking loop  
+- 🧠 Explainable recommendations (why this place?)  
+- 📊 Ranked output with match percentage  
+- 🚕 Distance and ETA awareness  
+- 🗺️ Real-time place data using OpenStreetMap  
 
 ---
 
+## 🧩 How It Works
 
-
-## 📌 Disclaimer
-
-VibeGo is a portfolio and product-experiment project.  
-Current implementation will focus on demonstrating core decision intelligence rather than full-scale commercial deployment.
+1. User provides constraints (location, group, time, budget, transport)
+2. System fetches nearby places using OpenStreetMap APIs
+3. Each place is scored based on distance feasibility, group suitability, and budget fit
+4. Top-ranked places are presented with explanations
+5. User rejection feedback updates the ranking dynamically
+6. Process continues until decision convergence
 
 ---
 
-## 👤 Author
+## 🛠 Tech Stack
 
-Built by Kavita Sr as a product-driven engineering experiment.
+**Frontend**
+- HTML
+- CSS
+- Vanilla JavaScript
+
+**Backend**
+- Node.js
+- Express.js
+
+**Data & APIs**
+- OpenStreetMap (Overpass API)
+- Nominatim (Geocoding & Reverse Geocoding)
+
+---
+
+## 👩‍💻 Author
+
+Built by **Kavita Sr** with ❤️  
+as a decision-focused, real-time recommendation system.

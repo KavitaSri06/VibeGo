@@ -14,6 +14,7 @@ const PORT = 5000;
 let sessionData = {
   rejectedPlaceIds: []
 };
+const addressCache = new Map();
 
 /* =========================
    TEST ROUTE
@@ -37,9 +38,14 @@ function cleanPlaceData(elements) {
         el.tags.tourism ||
         "other",
       lat: el.lat,
-      lng: el.lon
+      lng: el.lon,
+      opening_hours: parseOpeningHours(el.tags),
+      popular_items: popularItemsByCategory(
+        el.tags.amenity || el.tags.leisure || el.tags.tourism
+      )
     }));
 }
+
 
 /* =========================
    DISTANCE (KM)
@@ -141,6 +147,79 @@ async function geocode(city, area) {
   };
 }
 
+async function reverseGeocode(lat, lng) {
+  const key = `${lat},${lng}`;
+  if (addressCache.has(key)) {
+    return addressCache.get(key);
+  }
+
+  const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
+
+  try {
+    const res = await axios.get(url, {
+      headers: { "User-Agent": "VibeGo-App" }
+    });
+
+    const addr = res.data.address || {};
+
+    const readable = [
+      addr.road,
+      addr.suburb || addr.neighbourhood,
+      addr.city || addr.town || addr.village
+    ].filter(Boolean).join(", ");
+
+    addressCache.set(key, readable || "Address not available");
+    return readable || "Address not available";
+  } catch {
+    return "Address not available";
+  }
+}
+
+
+function parseOpeningHours(tags) {
+  if (!tags || !tags.opening_hours) return "Hours not available";
+  return tags.opening_hours;
+}
+
+function popularItemsByCategory(category) {
+  const map = {
+    cafe: ["Coffee", "Sandwich", "Pastry"],
+    restaurant: ["Meals", "Dosa", "Biryani"],
+    fast_food: ["Burgers", "Fried snacks"],
+    leisure: ["Snacks", "Drinks"]
+  };
+  return map[category] || [];
+}
+
+function checkConvergence(places, rejectedCount) {
+  if (places.length === 0) return null;
+
+  const top = places[0];
+  const second = places[1];
+
+  // Rule 1: Dominant winner
+  if (
+    top.match_percentage >= 80 &&
+    second &&
+    top.match_percentage - second.match_percentage >= 15
+  ) {
+    return {
+      converged: true,
+      message: "This place strongly matches your preferences. You can confidently choose this."
+    };
+  }
+
+  // Rule 2: Rejection fatigue
+  if (rejectedCount >= 3 && places.length <= 2) {
+    return {
+      converged: true,
+      message: "Based on your rejections, this is the best remaining option."
+    };
+  }
+
+  return { converged: false };
+}
+
 /* =========================
    FETCH PLACES API
 ========================= */
@@ -189,7 +268,8 @@ app.get("/api/places", async (req, res) => {
     );
 
     const cleaned = cleanPlaceData(response.data.elements)
-      .filter(p => !sessionData.rejectedPlaceIds.includes(p.id))
+      .filter(p => !sessionData.rejectedPlaceIds.includes(String(p.id)))
+
       .filter(p => allowedCategories.includes(p.category));
 
     const ranked = rankPlaces(
@@ -201,7 +281,39 @@ app.get("/api/places", async (req, res) => {
       transport
     );
 
-    res.json(ranked.slice(0, 5));
+   const topFive = ranked.slice(0, 5);
+
+await Promise.all(
+  topFive.map(async (place) => {
+    place.address = await reverseGeocode(place.lat, place.lng);
+  })
+);
+
+
+const finalResponse = topFive.map((place, index) => ({
+  ...place,
+  rank: index + 1,
+  match_percentage: Math.round(place.score * 100),
+  status: place.opening_hours,
+  popular_items: place.popular_items.length
+    ? place.popular_items
+    : ["Items info not available"]
+}));
+
+const convergence = checkConvergence(
+  finalResponse,
+  sessionData.rejectedPlaceIds.length
+);
+
+
+res.json({
+  converged: convergence.converged,
+  message: convergence.message || null,
+  results: finalResponse
+});
+
+
+
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: "Something went wrong" });
@@ -215,12 +327,15 @@ app.post("/api/reject", (req, res) => {
   const { placeId } = req.body;
   if (!placeId) return res.status(400).json({ error: "placeId required" });
 
-  if (!sessionData.rejectedPlaceIds.includes(placeId)) {
-    sessionData.rejectedPlaceIds.push(placeId);
+  const normalizedId = String(placeId);
+
+  if (!sessionData.rejectedPlaceIds.includes(normalizedId)) {
+    sessionData.rejectedPlaceIds.push(normalizedId);
   }
 
   res.json({ success: true });
 });
+
 
 /* =========================
    START SERVER
